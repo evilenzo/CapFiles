@@ -1,9 +1,0 @@
-{
-  "name": "capfiles",
-  "version-string": "1.0",
-  "dependencies": [
-    "boost",
-    "cli",
-    "pcapplusplus"
-  ]
-}
