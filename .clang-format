@@ -1,0 +1,19 @@
+BasedOnStyle: Google
+ColumnLimit: '80'
+IndentWidth: '4'
+TabWidth: '4'
+AccessModifierOffset: '-2'
+MaxEmptyLinesToKeep: '4'
+UseTab: Never
+IncludeCategories:
+  - Regex:           '<[_[:alnum:].]+>'
+    Priority:        3
+  - Regex:           '^(<|"(doctest|boost)/)'
+    Priority:        2
+  - Regex:           '.*'
+    Priority:        1
+IncludeBlocks: Regroup
+SortIncludes: CaseSensitive
+AlwaysBreakAfterDefinitionReturnType: None
+AlwaysBreakAfterReturnType: None
+
