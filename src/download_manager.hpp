@@ -44,7 +44,7 @@ class DownloadManager {
 
     /// @brief Commands list for CLI wrapper
     static constexpr auto METHODS = std::tuple(  //
-        CommandObject{"get", "Get file from server by filename",
+        CommandObject{"download", "Download file from server by filename",
                       [](std::ostream& os, const std::string& filename) {
                           os << "Downloading..." << std::endl;
                           try {
