@@ -30,7 +30,7 @@ Commands available:
 $ vcpkg install boost pcapplusplus libpcap cli
 ```
 
-Далее обычная сборка с использованием CMake
+Далее обычная сборка с использованием CMake:
 ```commandline
 $ cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake -B ./build
 $ cmake --build ./build --config Debug 
