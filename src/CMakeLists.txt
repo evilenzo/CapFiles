@@ -6,8 +6,9 @@ set(CAPFILES_TARGET_NAME            ${PROJECT_NAME})
 set(SRC
         archiver.hpp
         cli_wrapper.hpp
-        download_manager.hpp
         download_manager.cpp
+        download_manager.hpp
+        command.hpp
         session.hpp)
 
 ###

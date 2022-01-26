@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include "command.hpp"
+
 #include <boost/asio/connect.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/beast/core.hpp>
@@ -12,27 +14,45 @@
 
 #include <fstream>
 #include <string_view>
+#include <tuple>
+
+namespace Network {
+
+/// @brief Struct containing host connection information
+struct HostInfo {
+    using string_t = const char*;
+    string_t host;
+    string_t endpoint;
+    string_t service = "http";  // Protocol or port
+};
+
+}  // namespace Network
 
 /// @brief Class providing functionality for getting and unpacking file(s) from
 /// remote host
 class DownloadManager {
     /// @brief HTTP version for request
     static constexpr auto HTTP_VERSION{11};
+    static constexpr Network::HostInfo HOST_INFO{"ftp.moex.com",
+                                                 "/pub/FAST/ASTS/dump/"};
 
   public:
-    /// @brief Struct for more clear constructor call
-    struct HostInfo {
-        std::string_view host;
-        std::string_view endpoint;
-        std::string_view service = "http";  // Protocol or port
-    };
+    /**
+     * @brief Get file from remote host
+     * @param info remote host information
+     * @param filename
+     */
+    static void GetFile(std::string_view filename);
 
-  public:
-    DownloadManager(HostInfo info);
-
-    void GetFile(std::string_view filename);
-    static void Unpack() {}
-
-  private:
-    HostInfo m_host_info;
+    static constexpr auto METHODS = std::tuple(  //
+        CommandObject{"get", "Get file from server by filename",
+                      [](std::ostream& os, const std::string& filename) {
+                          os << "Downloading..." << std::endl;
+                          try {
+                              DownloadManager::GetFile(filename);
+                          } catch (const boost::beast::system_error& ex) {
+                              os << ex.what() << std::endl
+                                 << ex.code() << std::endl;
+                          }
+                      }});
 };

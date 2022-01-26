@@ -6,15 +6,13 @@
 
 #include "cli_wrapper.hpp"
 #include "download_manager.hpp"
+#include "archiver.hpp"
 
+#include <array>
 #include <utility>
 
 /// @brief Session class (Facade design pattern)
 class Session {
-    /// @brief Hardcoded host information for DownloadManager
-    static constexpr DownloadManager::HostInfo HOST_INFO{
-        "ftp.moex.com", "/pub/FAST/ASTS/dump/"};
-
   public:
     /**
      * Constructor with member initialization
@@ -25,17 +23,12 @@ class Session {
 
     /// @brief Initialize and start CLI instance
     void Start() {
-        m_cli_wrapper.AddMenuEntries(CommandObject(
-            "get", "Get file from server by filename",
-            [&](std::ostream& os, const std::string& filename) {
-                os << "Downloading..." << std::endl;
-                try {
-                    m_download_manager.GetFile(filename);
-                } catch (const boost::beast::system_error& ex) {
-                    os << ex.what() << std::endl << ex.code() << std::endl;
-                }
-            }));
-
+        m_cli_wrapper.CreateMenu(m_prompt);
+        std::apply(
+            [&](auto&&... module) {
+                ((m_cli_wrapper.AddMenuEntries(module.METHODS)), ...);
+            },
+            m_modules);
         m_cli_wrapper.Start();
     }
 
@@ -46,6 +39,5 @@ class Session {
     /// @brief CliWrapper module
     CliWrapper m_cli_wrapper;
 
-    /// @brief DownloadManager module
-    DownloadManager m_download_manager{HOST_INFO};
+    static constexpr auto m_modules = std::tuple<DownloadManager, Archiver>();
 };
