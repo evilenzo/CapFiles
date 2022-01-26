@@ -30,10 +30,7 @@ jobs:
         run: ./vcpkg/bootstrap-vcpkg.sh && vcpkg integrate install
 
       - name: Install vcpkg dependencies
-        run: cd vcpkg && ./vcpkg install cli pcapplusplus
-
-      - name: Install boost
-        run: sudo apt-get install -y libboost-all-dev
+        run: cd vcpkg && ./vcpkg install boost cli pcapplusplus
 
       - name: CMake configure
         run: |
