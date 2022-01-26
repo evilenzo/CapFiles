@@ -33,17 +33,16 @@ struct HostInfo {
 class DownloadManager {
     /// @brief HTTP version for request
     static constexpr auto HTTP_VERSION{11};
+
+    /// @brief Hardcoded host information
     static constexpr Network::HostInfo HOST_INFO{"ftp.moex.com",
                                                  "/pub/FAST/ASTS/dump/"};
 
   public:
-    /**
-     * @brief Get file from remote host
-     * @param info remote host information
-     * @param filename
-     */
+    /// @brief Get file from remote host
     static void GetFile(std::string_view filename);
 
+    /// @brief Commands list for CLI wrapper
     static constexpr auto METHODS = std::tuple(  //
         CommandObject{"get", "Get file from server by filename",
                       [](std::ostream& os, const std::string& filename) {

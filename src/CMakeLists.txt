@@ -4,6 +4,7 @@ set(CAPFILES_TARGET_NAME            ${PROJECT_NAME})
 ### SOURCES
 ###
 set(SRC
+        archiver.cpp
         archiver.hpp
         cli_wrapper.hpp
         download_manager.cpp
