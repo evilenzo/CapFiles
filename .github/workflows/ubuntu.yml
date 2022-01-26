@@ -10,9 +10,6 @@ on:
   release:
     types: [ published, created, edited ]
 
-env:
-  CMAKE_ARGS: "-DCMAKE_TOOLCHAIN_FILE=/usr/local/share/vcpkg/scripts/buildsystems/vcpkg.cmake"
-
 jobs:
   Build:
     strategy:
@@ -37,7 +34,7 @@ jobs:
           cmake -B ${{github.workspace}}/build \
           -DCMAKE_BUILD_TYPE=${{ matrix.BUILD_TYPE }} \
           -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} \
-          $CMAKE_ARGS
+          -DCMAKE_TOOLCHAIN_FILE=/usr/local/share/vcpkg/scripts/buildsystems/vcpkg.cmake
 
       - name: Build
         run: cmake --build ${{github.workspace}}/build --config ${{ matrix.BUILD_TYPE }}
