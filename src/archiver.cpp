@@ -20,13 +20,13 @@ void Archiver::Unpack(std::ostream& os, std::string_view filename) {
         struct tm* time_tm = localtime(&time_tt);
         strftime(time_string, TIME_STRING_SIZE, TIME_FORMAT, time_tm);
 
-        os << " [Пакет " << counter << "]" << endl;
-        os << "Время получения: " << time_string << endl;
-        os << "Размер: " << packet.getFirstLayer()->getDataLen() << " байта"
+        os << " [Packet " << counter << "]" << endl;
+        os << "Time of arrival: " << time_string << endl;
+        os << "Size: " << packet.getFirstLayer()->getDataLen() << " bytes"
            << endl;
-        os << "Порт отправителя: "
+        os << "Sender port: "
            << packet.getLayerOfType<pcpp::UdpLayer>()->getSrcPort() << endl;
-        os << "Порт получателя: "
+        os << "Receiver port: "
            << packet.getLayerOfType<pcpp::UdpLayer>()->getDstPort() << endl;
         os << endl;
     });
