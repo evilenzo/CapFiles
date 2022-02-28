@@ -1,8 +1,5 @@
 # CapFiles
 
-### Решение задачи CapFiles
-
-Приложение предоставляет Command-Line Interface для взаимодействия с подпрограммами:
 ```
 CapFiles> help
 Commands available:
@@ -16,35 +13,35 @@ Commands available:
 	Unpack file in memory
 ```
 
-## Сборка
+## Building
 
-Требования:
+Requirements:
 ```
 - boost
 - pcapplusplus
 - libpcap
 - cli
 ```
-Все они доступны в пакетном менеджере **vcpkg**:
+All of them are available in **vcpkg**:
 ```commandline
 $ vcpkg install boost pcapplusplus libpcap cli
 ```
 
-Далее обычная сборка с использованием CMake:
+Simple building using cmake
 ```commandline
-$ cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=/opt/vcpkg/scripts/buildsystems/vcpkg.cmake -B ./build
+$ cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_TOOLCHAIN_FILE=/path/to/vcpkg/toolchain -B ./build
 $ cmake --build ./build --config Debug 
 ```
 
-## Примеры
+## Examples
 
-Программа устанавливает подключение к http://ftp.moex.com/pub/FAST/ASTS/dump/ автоматически.
-Используя команду **download** можно скачать файл с данного эндпоинта:
+App connects to http://ftp.moex.com/pub/FAST/ASTS/dump/ automatically.
+You can download any file from this server using **download** command:
 ```
 CapFiles> download test_eq.cap.gz
 Downloading...
 ```
-Распаковка в память и парсинг представлены модулем Archiver и осуществляются по команде **unpack**:
+Also you can unpack to memory and parse file using **unpack** command:
 ```
 CapFiles> unpack test_eq.cap.gz
 ...
